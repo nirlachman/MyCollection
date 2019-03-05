@@ -1,0 +1,2 @@
+# MyCollection
+UICollectionView sample app
