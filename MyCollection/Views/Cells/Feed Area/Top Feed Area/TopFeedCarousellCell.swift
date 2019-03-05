@@ -13,7 +13,6 @@ class TopFeedCarousellCell: UICollectionViewCell {
     let imageView: UIImageView = {
         let newImageView = UIImageView(frame: CGRect.zero)
         newImageView.contentMode = .scaleAspectFill
-        newImageView.clipsToBounds = true
         return newImageView
     }()
     
@@ -21,7 +20,7 @@ class TopFeedCarousellCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = UIColor.blue
-        layer.cornerRadius = 3
+        layer.cornerRadius = 4
         setupImageView()
     }
     
@@ -34,6 +33,8 @@ class TopFeedCarousellCell: UICollectionViewCell {
         imageView.image = #imageLiteral(resourceName: "wallpaper2")
         addSubview(imageView)
         imageView.clipToSuperview(with: [.trailing, .leading, .top, .bottom])
+        // Create corner radius top left and top right
+        imageView.roundCorners(radius: layer.cornerRadius, corners: [.topRight, .topLeft, .bottomLeft, .bottomRight])
     }
     
 }
