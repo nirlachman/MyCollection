@@ -63,9 +63,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         feedCollectionView.contentInset = .init(top: 0, left: 0, bottom: 0, right: 0)
         feedCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        feedCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        feedCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        feedCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+//        feedCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+//        feedCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+//        feedCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        feedCollectionView.clipToSuperview(with: [.leading, .trailing, .bottom])
         feedCollectionView.topAnchor.constraint(equalTo: carousellCollectionView.bottomAnchor).isActive = true
     }
 
@@ -107,10 +108,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             return CGSize(width: 80.0, height: 80.0)
         } else {
             if indexPath.row == 0 {
-                return CGSize(width: UIScreen.main.bounds.width, height: 120.0)
+                // top
+                return CGSize(width: UIScreen.main.bounds.width, height: 170.0)
             } else if indexPath.row == 1 {
-                return CGSize(width: UIScreen.main.bounds.width, height: 90.0)
+                // middle
+                return CGSize(width: UIScreen.main.bounds.width, height: 170.0)
             } else {
+                // bottom
                 return CGSize(width: UIScreen.main.bounds.width, height: 300.0)
             }
         }

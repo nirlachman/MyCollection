@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6DA8EDB4222E93E600E7AC01 /* MiddleFeedCarousellCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA8EDB3222E93E600E7AC01 /* MiddleFeedCarousellCell.swift */; };
+		6DA8EDB7222E9BF600E7AC01 /* UIView+Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA8EDB6222E9BF600E7AC01 /* UIView+Common.swift */; };
 		6DEDBAEF222E4922009D0E9B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEDBAEE222E4922009D0E9B /* AppDelegate.swift */; };
 		6DEDBAF1222E4922009D0E9B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEDBAF0222E4922009D0E9B /* ViewController.swift */; };
 		6DEDBAF4222E4922009D0E9B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DEDBAF2222E4922009D0E9B /* Main.storyboard */; };
@@ -24,6 +25,7 @@
 
 /* Begin PBXFileReference section */
 		6DA8EDB3222E93E600E7AC01 /* MiddleFeedCarousellCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleFeedCarousellCell.swift; sourceTree = "<group>"; };
+		6DA8EDB6222E9BF600E7AC01 /* UIView+Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Common.swift"; sourceTree = "<group>"; };
 		6DEDBAEB222E4922009D0E9B /* MyCollection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyCollection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DEDBAEE222E4922009D0E9B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6DEDBAF0222E4922009D0E9B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -51,6 +53,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6DA8EDB5222E94F300E7AC01 /* Feed Area */ = {
+			isa = PBXGroup;
+			children = (
+				6DEDBB12222E6EC5009D0E9B /* Top Feed Area */,
+				6DEDBB13222E6EDA009D0E9B /* Middle Area */,
+				6DEDBB14222E6EE4009D0E9B /* Bottom Area */,
+			);
+			path = "Feed Area";
+			sourceTree = "<group>";
+		};
 		6DEDBAE2222E4922009D0E9B = {
 			isa = PBXGroup;
 			children = (
@@ -112,9 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				6DEDBB11222E6EBF009D0E9B /* Menu Area */,
-				6DEDBB12222E6EC5009D0E9B /* Top Feed Area */,
-				6DEDBB13222E6EDA009D0E9B /* Middle Area */,
-				6DEDBB14222E6EE4009D0E9B /* Bottom Area */,
+				6DA8EDB5222E94F300E7AC01 /* Feed Area */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -138,6 +148,7 @@
 			children = (
 				6DEDBB09222E59B3009D0E9B /* UICollectionView+Common.swift */,
 				6DEDBB17222E6F6E009D0E9B /* UIColor+Common.swift */,
+				6DA8EDB6222E9BF600E7AC01 /* UIView+Common.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -249,6 +260,7 @@
 			files = (
 				6DEDBB10222E6E18009D0E9B /* BottomFeedCell.swift in Sources */,
 				6DEDBB18222E6F6E009D0E9B /* UIColor+Common.swift in Sources */,
+				6DA8EDB7222E9BF600E7AC01 /* UIView+Common.swift in Sources */,
 				6DEDBB0C222E5B7E009D0E9B /* TopFeedCell.swift in Sources */,
 				6DEDBB0E222E5BAA009D0E9B /* MiddleFeedCell.swift in Sources */,
 				6DEDBB01222E4FDC009D0E9B /* MenuCarousellCell.swift in Sources */,

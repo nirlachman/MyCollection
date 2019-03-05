@@ -9,6 +9,7 @@
 import UIKit
 
 extension UICollectionView {
+    
     class func createCollectionView(with delegate: UICollectionViewDelegate?, dataSource: UICollectionViewDataSource?, scrollDirection:  UICollectionView.ScrollDirection) -> UICollectionView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = scrollDirection
@@ -19,17 +20,5 @@ extension UICollectionView {
         cv.showsHorizontalScrollIndicator = false
         cv.showsVerticalScrollIndicator = false
         return cv
-    }
-    
-    func clipToSuperview() {
-        guard let superview = self.superview else {
-            return
-        }
-        
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.leadingAnchor.constraint(equalTo: superview.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        self.trailingAnchor.constraint(equalTo: superview.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        self.topAnchor.constraint(equalTo: superview.safeAreaLayoutGuide.topAnchor).isActive = true
-        self.bottomAnchor.constraint(equalTo: superview.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
 }
