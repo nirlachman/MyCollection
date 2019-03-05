@@ -7,14 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6DA8EDB4222E93E600E7AC01 /* MiddleFeedCarousellCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA8EDB3222E93E600E7AC01 /* MiddleFeedCarousellCell.swift */; };
 		6DEDBAEF222E4922009D0E9B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEDBAEE222E4922009D0E9B /* AppDelegate.swift */; };
 		6DEDBAF1222E4922009D0E9B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEDBAF0222E4922009D0E9B /* ViewController.swift */; };
 		6DEDBAF4222E4922009D0E9B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DEDBAF2222E4922009D0E9B /* Main.storyboard */; };
 		6DEDBAF6222E4926009D0E9B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DEDBAF5222E4926009D0E9B /* Assets.xcassets */; };
 		6DEDBAF9222E4926009D0E9B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DEDBAF7222E4926009D0E9B /* LaunchScreen.storyboard */; };
+		6DEDBB01222E4FDC009D0E9B /* MenuCarousellCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEDBB00222E4FDC009D0E9B /* MenuCarousellCell.swift */; };
+		6DEDBB0A222E59B3009D0E9B /* UICollectionView+Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEDBB09222E59B3009D0E9B /* UICollectionView+Common.swift */; };
+		6DEDBB0C222E5B7E009D0E9B /* TopFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEDBB0B222E5B7E009D0E9B /* TopFeedCell.swift */; };
+		6DEDBB0E222E5BAA009D0E9B /* MiddleFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEDBB0D222E5BAA009D0E9B /* MiddleFeedCell.swift */; };
+		6DEDBB10222E6E18009D0E9B /* BottomFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEDBB0F222E6E18009D0E9B /* BottomFeedCell.swift */; };
+		6DEDBB16222E6F1F009D0E9B /* TopFeedCarousellCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEDBB15222E6F1F009D0E9B /* TopFeedCarousellCell.swift */; };
+		6DEDBB18222E6F6E009D0E9B /* UIColor+Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEDBB17222E6F6E009D0E9B /* UIColor+Common.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6DA8EDB3222E93E600E7AC01 /* MiddleFeedCarousellCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleFeedCarousellCell.swift; sourceTree = "<group>"; };
 		6DEDBAEB222E4922009D0E9B /* MyCollection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyCollection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DEDBAEE222E4922009D0E9B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6DEDBAF0222E4922009D0E9B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +31,13 @@
 		6DEDBAF5222E4926009D0E9B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6DEDBAF8222E4926009D0E9B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6DEDBAFA222E4926009D0E9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6DEDBB00222E4FDC009D0E9B /* MenuCarousellCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCarousellCell.swift; sourceTree = "<group>"; };
+		6DEDBB09222E59B3009D0E9B /* UICollectionView+Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Common.swift"; sourceTree = "<group>"; };
+		6DEDBB0B222E5B7E009D0E9B /* TopFeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopFeedCell.swift; sourceTree = "<group>"; };
+		6DEDBB0D222E5BAA009D0E9B /* MiddleFeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleFeedCell.swift; sourceTree = "<group>"; };
+		6DEDBB0F222E6E18009D0E9B /* BottomFeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomFeedCell.swift; sourceTree = "<group>"; };
+		6DEDBB15222E6F1F009D0E9B /* TopFeedCarousellCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopFeedCarousellCell.swift; sourceTree = "<group>"; };
+		6DEDBB17222E6F6E009D0E9B /* UIColor+Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Common.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +70,110 @@
 		6DEDBAED222E4922009D0E9B /* MyCollection */ = {
 			isa = PBXGroup;
 			children = (
-				6DEDBAEE222E4922009D0E9B /* AppDelegate.swift */,
-				6DEDBAF0222E4922009D0E9B /* ViewController.swift */,
+				6DEDBB07222E5933009D0E9B /* Model */,
+				6DEDBB06222E592D009D0E9B /* ViewModel */,
+				6DEDBB03222E5913009D0E9B /* Views */,
+				6DEDBB02222E590A009D0E9B /* AppDelegate */,
+				6DEDBB08222E59A1009D0E9B /* Extensions */,
 				6DEDBAF2222E4922009D0E9B /* Main.storyboard */,
 				6DEDBAF5222E4926009D0E9B /* Assets.xcassets */,
 				6DEDBAF7222E4926009D0E9B /* LaunchScreen.storyboard */,
 				6DEDBAFA222E4926009D0E9B /* Info.plist */,
 			);
 			path = MyCollection;
+			sourceTree = "<group>";
+		};
+		6DEDBB02222E590A009D0E9B /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				6DEDBAEE222E4922009D0E9B /* AppDelegate.swift */,
+			);
+			path = AppDelegate;
+			sourceTree = "<group>";
+		};
+		6DEDBB03222E5913009D0E9B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6DEDBB04222E591A009D0E9B /* Controllers */,
+				6DEDBB05222E5924009D0E9B /* Cells */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		6DEDBB04222E591A009D0E9B /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6DEDBAF0222E4922009D0E9B /* ViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		6DEDBB05222E5924009D0E9B /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				6DEDBB11222E6EBF009D0E9B /* Menu Area */,
+				6DEDBB12222E6EC5009D0E9B /* Top Feed Area */,
+				6DEDBB13222E6EDA009D0E9B /* Middle Area */,
+				6DEDBB14222E6EE4009D0E9B /* Bottom Area */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		6DEDBB06222E592D009D0E9B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		6DEDBB07222E5933009D0E9B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6DEDBB08222E59A1009D0E9B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				6DEDBB09222E59B3009D0E9B /* UICollectionView+Common.swift */,
+				6DEDBB17222E6F6E009D0E9B /* UIColor+Common.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		6DEDBB11222E6EBF009D0E9B /* Menu Area */ = {
+			isa = PBXGroup;
+			children = (
+				6DEDBB00222E4FDC009D0E9B /* MenuCarousellCell.swift */,
+			);
+			path = "Menu Area";
+			sourceTree = "<group>";
+		};
+		6DEDBB12222E6EC5009D0E9B /* Top Feed Area */ = {
+			isa = PBXGroup;
+			children = (
+				6DEDBB0B222E5B7E009D0E9B /* TopFeedCell.swift */,
+				6DEDBB15222E6F1F009D0E9B /* TopFeedCarousellCell.swift */,
+			);
+			path = "Top Feed Area";
+			sourceTree = "<group>";
+		};
+		6DEDBB13222E6EDA009D0E9B /* Middle Area */ = {
+			isa = PBXGroup;
+			children = (
+				6DEDBB0D222E5BAA009D0E9B /* MiddleFeedCell.swift */,
+				6DA8EDB3222E93E600E7AC01 /* MiddleFeedCarousellCell.swift */,
+			);
+			path = "Middle Area";
+			sourceTree = "<group>";
+		};
+		6DEDBB14222E6EE4009D0E9B /* Bottom Area */ = {
+			isa = PBXGroup;
+			children = (
+				6DEDBB0F222E6E18009D0E9B /* BottomFeedCell.swift */,
+			);
+			path = "Bottom Area";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,7 +247,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DEDBB10222E6E18009D0E9B /* BottomFeedCell.swift in Sources */,
+				6DEDBB18222E6F6E009D0E9B /* UIColor+Common.swift in Sources */,
+				6DEDBB0C222E5B7E009D0E9B /* TopFeedCell.swift in Sources */,
+				6DEDBB0E222E5BAA009D0E9B /* MiddleFeedCell.swift in Sources */,
+				6DEDBB01222E4FDC009D0E9B /* MenuCarousellCell.swift in Sources */,
+				6DEDBB0A222E59B3009D0E9B /* UICollectionView+Common.swift in Sources */,
 				6DEDBAF1222E4922009D0E9B /* ViewController.swift in Sources */,
+				6DA8EDB4222E93E600E7AC01 /* MiddleFeedCarousellCell.swift in Sources */,
+				6DEDBB16222E6F1F009D0E9B /* TopFeedCarousellCell.swift in Sources */,
 				6DEDBAEF222E4922009D0E9B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
