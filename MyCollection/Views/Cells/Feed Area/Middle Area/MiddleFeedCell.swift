@@ -12,9 +12,14 @@ class MiddleFeedCell: UICollectionViewCell, UICollectionViewDelegate, UICollecti
     // MARK - Properties
     private let MiddleFeedCarousellCellID = "MIDDLE_FEED_CAROUSELL_CELL_ID"
     private lazy var carousellCollectionView: UICollectionView = {
-        return UICollectionView.createCollectionView(with: self, dataSource: self, scrollDirection: .horizontal)
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        return UICollectionView.createCollectionView(withDelegate: self, dataSource: self, layout: layout)
     }()
-    let titleLabel: UILabel = {
+    private lazy var itemSizeHelper: CollectionViewCellSizeHelper = {
+        return CollectionViewCellSizeHelper(traits: traitCollection, strategy: MiddleFeedCarousellItemSize())
+    }()
+    private let titleLabel: UILabel = {
         let newLabel = UILabel(frame: CGRect.zero)
         newLabel.textAlignment = .left
         newLabel.font = UIFont.boldSystemFont(ofSize: 15.0)
@@ -54,9 +59,7 @@ class MiddleFeedCell: UICollectionViewCell, UICollectionViewDelegate, UICollecti
         carousellCollectionView.clipToSuperview(with: [.leading, .trailing])
     }
     
-    //-------------------------------------------------------------------------------------------
     // MARK: - UICollectionViewDataSource
-    //-------------------------------------------------------------------------------------------
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
     }
@@ -68,11 +71,9 @@ class MiddleFeedCell: UICollectionViewCell, UICollectionViewDelegate, UICollecti
         return cell
     }
     
-    //-------------------------------------------------------------------------------------------
     // MARK: - UICollectionViewDelegateFlowLayout
-    //-------------------------------------------------------------------------------------------
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 120.0, height: 115.0)
+        return itemSizeHelper.getItemSize()
     }
 }
 

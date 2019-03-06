@@ -8,17 +8,33 @@
 
 import UIKit
 
-class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     let MenuCarousellCellID = "MENU_CAROUSELL_CELL_ID"
     let TopFeedCellID = "TOP_FEED_CELL_ID"
     let MiddleFeedCellID = "MIDDLE_FEED_CELL_ID"
     let BottomFeedCellID = "BOTTOM_FEED_CELL_ID"
-    
-    lazy var carousellCollectionView: UICollectionView = {
-        return UICollectionView.createCollectionView(with: self, dataSource: self, scrollDirection: .horizontal)
+    private lazy var menuItemSizeHelper: CollectionViewCellSizeHelper = {
+        return CollectionViewCellSizeHelper(traits: traitCollection, strategy: MenuItemSize())
     }()
-    lazy var feedCollectionView: UICollectionView = {
-        return UICollectionView.createCollectionView(with: self, dataSource: self, scrollDirection: .vertical)
+    private lazy var topFeedItemSizeHelper: CollectionViewCellSizeHelper = {
+        return CollectionViewCellSizeHelper(traits: traitCollection, strategy: TopFeedItemSize())
+    }()
+    private lazy var middleFeedItemSizeHelper: CollectionViewCellSizeHelper = {
+        return CollectionViewCellSizeHelper(traits: traitCollection, strategy: MiddleFeedItemSize())
+    }()
+    private lazy var bottomFeedItemSizeHelper: CollectionViewCellSizeHelper = {
+        return CollectionViewCellSizeHelper(traits: traitCollection, strategy: BottomFeedItemSize())
+    }()
+    
+    private lazy var menuCarousellCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        return UICollectionView.createCollectionView(withDelegate: self, dataSource: self, layout: layout)
+    }()
+    private lazy var feedCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 0.0
+        return UICollectionView.createCollectionView(withDelegate: self, dataSource: self, layout: layout)
     }()
     
     var carousellHeightConstraint: NSLayoutConstraint?
@@ -26,23 +42,29 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupCarousellCollectionView()
+        setupMenuCarousellCollectionView()
         setupFeedCollectionView()
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        menuCarousellCollectionView.collectionViewLayout.invalidateLayout()
+        feedCollectionView.collectionViewLayout.invalidateLayout()
+    }
 
-    func setupCarousellCollectionView() {
-        carousellCollectionView.register(MenuCarousellCell.self, forCellWithReuseIdentifier: MenuCarousellCellID)
-        view.addSubview(carousellCollectionView)
+    func setupMenuCarousellCollectionView() {
+        menuCarousellCollectionView.register(MenuCarousellCell.self, forCellWithReuseIdentifier: MenuCarousellCellID)
+        view.addSubview(menuCarousellCollectionView)
         
-        carousellCollectionView.contentInset = .init(top: 10, left: 10, bottom: 10, right: 10)
+        menuCarousellCollectionView.contentInset = .init(top: 10, left: 10, bottom: 10, right: 10)
 //        carousellCollectionView.scrollIndicatorInsets = .init(top: 50, left: 0, bottom: 0, right: 0)
-        carousellCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        carousellCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        carousellCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        carousellCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        menuCarousellCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        menuCarousellCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        menuCarousellCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        menuCarousellCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
 //        carousellHeightConstraint = carousellCollectionView.heightAnchor.constraint(equalToConstant: 100.0)
 //        carousellHeightConstraint?.isActive = true
-        carousellBottomConstraint = carousellCollectionView.bottomAnchor.constraint(equalTo: carousellCollectionView.topAnchor, constant: 100.0)
+        carousellBottomConstraint = menuCarousellCollectionView.bottomAnchor.constraint(equalTo: menuCarousellCollectionView.topAnchor, constant: 100.0)
         carousellBottomConstraint?.isActive = true
 
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
@@ -63,32 +85,47 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         feedCollectionView.contentInset = .init(top: 0, left: 0, bottom: 0, right: 0)
         feedCollectionView.translatesAutoresizingMaskIntoConstraints = false
-//        feedCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-//        feedCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-//        feedCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         feedCollectionView.clipToSuperview(with: [.leading, .trailing, .bottom])
-        feedCollectionView.topAnchor.constraint(equalTo: carousellCollectionView.bottomAnchor).isActive = true
+        feedCollectionView.topAnchor.constraint(equalTo: menuCarousellCollectionView.bottomAnchor).isActive = true
     }
 
     // MARK: UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        if collectionView == menuCarousellCollectionView {
+            return 15
+        } else {
+            if section == 0 {
+                return 1
+            } else if section == 1 {
+                return 1
+            } else {
+                return 15
+            }
+        }
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        if collectionView == menuCarousellCollectionView {
+            return 1
+        } else {
+            return 3
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == carousellCollectionView {
+        if collectionView == menuCarousellCollectionView {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MenuCarousellCellID, for: indexPath) as? MenuCarousellCell else {
                 return UICollectionViewCell(frame: CGRect(x: 0.0, y: 0.0, width: view.bounds.width, height: 100.0))
             }
             cell.label.text = "ACTION"
             return cell
         } else {
-            if indexPath.row == 0 {
+            if indexPath.section == 0 {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopFeedCellID, for: indexPath) as? TopFeedCell else {
                     return UICollectionViewCell(frame: CGRect(x: 0.0, y: 0.0, width: view.bounds.width, height: 100.0))
                 }
                 return cell
-            } else if indexPath.row == 1 {
+            } else if indexPath.section == 1 {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MiddleFeedCellID, for: indexPath) as? MiddleFeedCell else {
                     return UICollectionViewCell(frame: CGRect(x: 0.0, y: 0.0, width: view.bounds.width, height: 100.0))
                 }
@@ -102,22 +139,54 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     
+    
     // MARK: UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView == carousellCollectionView {
-            return CGSize(width: 80.0, height: 80.0)
+        if collectionView == menuCarousellCollectionView {
+            return menuItemSizeHelper.getItemSize()
         } else {
-            if indexPath.row == 0 {
+            if indexPath.section == 0 {
                 // top
-                return CGSize(width: UIScreen.main.bounds.width, height: 170.0)
-            } else if indexPath.row == 1 {
+                return topFeedItemSizeHelper.getItemSize()
+            } else if indexPath.section == 1 {
                 // middle
-                return CGSize(width: UIScreen.main.bounds.width, height: 170.0)
+                return middleFeedItemSizeHelper.getItemSize()
             } else {
                 // bottom
-                return CGSize(width: UIScreen.main.bounds.width, height: 300.0)
+                return bottomFeedItemSizeHelper.getItemSize()
             }
         }
     }
-}
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        menuCarousellCollectionView.reloadItems(at: menuCarousellCollectionView.indexPathsForVisibleItems)
+        feedCollectionView.reloadItems(at: feedCollectionView.indexPathsForVisibleItems)
+    }
+    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//        if collectionView == meanuCarousellCollectionView {
+//            return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+//        } else {
+//            if section == 0 {
+//                // top
+//                return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+//            } else if section == 1 {
+//                // middle
+//                return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+//            } else {
+//                // bottom
+//                return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+//            }
+//        }
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+//        return 0.0
+//    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+//        return 0.0
+//    }
+    
 
+}

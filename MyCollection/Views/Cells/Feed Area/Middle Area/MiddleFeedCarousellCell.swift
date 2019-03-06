@@ -10,13 +10,13 @@ import UIKit
 
 class MiddleFeedCarousellCell: UICollectionViewCell {
     // MARK - Properties
-    let imageView: UIImageView = {
+    private let imageView: UIImageView = {
         let newImageView = UIImageView(frame: CGRect.zero)
         newImageView.contentMode = .scaleAspectFill
         return newImageView
     }()
     
-    let itemTitleLabel: UILabel = {
+    private let itemTitleLabel: UILabel = {
         let newLabel = UILabel(frame: CGRect.zero)
         newLabel.textAlignment = .center
         newLabel.font = UIFont.systemFont(ofSize: 14.0)
@@ -53,6 +53,7 @@ class MiddleFeedCarousellCell: UICollectionViewCell {
         addSubview(itemTitleLabel)
         itemTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         itemTitleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5.0).isActive = true
+        itemTitleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5.0).isActive = true
         itemTitleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5.0).isActive = true
         itemTitleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5.0).isActive = true
     }
