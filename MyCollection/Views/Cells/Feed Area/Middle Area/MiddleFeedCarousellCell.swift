@@ -43,7 +43,7 @@ class MiddleFeedCarousellCell: UICollectionViewCell {
         imageView.image = #imageLiteral(resourceName: "wallpaper")
         addSubview(imageView)
         imageView.clipToSuperview(with: [.trailing, .leading, .top])
-        imageView.heightAnchor.constraint(equalToConstant: 70.0).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 2/3 * self.frame.size.height).isActive = true
         // Create corner radius top left and top right
         imageView.roundCorners(radius: layer.cornerRadius, corners: [.topRight, .topLeft])
     }

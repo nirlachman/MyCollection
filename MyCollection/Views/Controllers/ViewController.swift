@@ -27,7 +27,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }()
     
     private lazy var menuCarousellCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
+        let layout = MenuCollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         return UICollectionView.createCollectionView(withDelegate: self, dataSource: self, layout: layout)
     }()
@@ -37,17 +37,20 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         return UICollectionView.createCollectionView(withDelegate: self, dataSource: self, layout: layout)
     }()
     
-    var carousellHeightConstraint: NSLayoutConstraint?
-    var carousellBottomConstraint: NSLayoutConstraint?
+    var menuCarousellTopConstraint: NSLayoutConstraint?
+    var menuCarousellBottomConstraint: NSLayoutConstraint?
+    var menuCarousellMaxHeight: CGFloat = 90.0 //default val
+    var menuCarousellMinHeight: CGFloat = 40.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.isTranslucent = false
         setupMenuCarousellCollectionView()
         setupFeedCollectionView()
     }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+        
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
         menuCarousellCollectionView.collectionViewLayout.invalidateLayout()
         feedCollectionView.collectionViewLayout.invalidateLayout()
     }
@@ -55,11 +58,44 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func setupMenuCarousellCollectionView() {
         menuCarousellCollectionView.register(MenuCarousellCell.self, forCellWithReuseIdentifier: MenuCarousellCellID)
         view.addSubview(menuCarousellCollectionView)
-        menuCarousellCollectionView.clipToSuperview(with: [.leading, .trailing, .top])
-        menuCarousellCollectionView.bottomAnchor.constraint(equalTo: menuCarousellCollectionView.topAnchor, constant: 100.0).isActive = true
+        menuCarousellCollectionView.clipToSuperview(with: [.leading, .trailing])
+        menuCarousellTopConstraint = menuCarousellCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        menuCarousellTopConstraint?.isActive = true
+        menuCarousellBottomConstraint = menuCarousellCollectionView.bottomAnchor.constraint(equalTo: menuCarousellCollectionView.topAnchor, constant: menuItemSizeHelper.getItemSize().height)
+        menuCarousellBottomConstraint?.isActive = true
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView == feedCollectionView {
+            let contentOffsetY = scrollView.contentOffset.y
+            if contentOffsetY >= 0 {
+                if self.menuCarousellBottomConstraint!.constant >= menuCarousellMinHeight  {
+                    let updatedAnchor = self.menuCarousellMaxHeight - contentOffsetY
+                    guard updatedAnchor >= menuCarousellMinHeight else {
+                        return
+                    }
+                    self.menuCarousellBottomConstraint?.constant = updatedAnchor
+                    UIViewPropertyAnimator(duration: 0.1, curve: .easeInOut) {
+                        self.menuCarousellCollectionView.setNeedsLayout()
+                    }.startAnimation()
+                }
+            } else if self.menuCarousellBottomConstraint!.constant < menuCarousellMaxHeight {
+                let updatedAnchor = self.menuCarousellMinHeight + abs(contentOffsetY)
+                guard updatedAnchor < menuCarousellMaxHeight else {
+                    return
+                }
+                
+                self.menuCarousellBottomConstraint?.constant = updatedAnchor
+                UIViewPropertyAnimator(duration: 0.1, curve: .easeInOut) {
+                    self.menuCarousellCollectionView.setNeedsLayout()
+                }.startAnimation()
+            }
+        }
     }
     
     func setupFeedCollectionView() {
+        feedCollectionView.contentInsetAdjustmentBehavior = .never
+        
         feedCollectionView.register(TopFeedCell.self, forCellWithReuseIdentifier: TopFeedCellID)
         feedCollectionView.register(MiddleFeedCell.self, forCellWithReuseIdentifier: MiddleFeedCellID)
         feedCollectionView.register(BottomFeedCell.self, forCellWithReuseIdentifier: BottomFeedCellID)
@@ -120,11 +156,19 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == menuCarousellCollectionView {
+            collectionView.collectionViewLayout.invalidateLayout()
+        }
+    }
+    
     
     // MARK: UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == menuCarousellCollectionView {
-            return menuItemSizeHelper.getItemSize()
+            let size = menuItemSizeHelper.getItemSize()
+            menuCarousellMaxHeight = size.height
+            return size
         } else {
             if indexPath.section == 0 {
                 // top
@@ -147,6 +191,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        if collectionView == menuCarousellCollectionView {
+            return UIEdgeInsets(top: 0.0, left: 10.0, bottom: 0.0, right: 10.0)
+        }
+        
         return UIEdgeInsets(top: Constants.edgeInset, left: Constants.edgeInset, bottom: Constants.edgeInset, right: Constants.edgeInset)
     }
 
@@ -156,6 +204,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 10.0
     }
+    
+    
     
 
 }

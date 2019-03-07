@@ -9,6 +9,13 @@
 import UIKit
 
 class MenuCarousellCell: UICollectionViewCell {
+    // MARK: - Properties
+    private let imageView: UIImageView = {
+        let newImageView = UIImageView(frame: CGRect.zero)
+        newImageView.contentMode = .scaleAspectFill
+        return newImageView
+    }()
+    
     let label: UILabel = {
         let newLabel = UILabel(frame: CGRect.zero)
         newLabel.textAlignment = .center
@@ -25,9 +32,23 @@ class MenuCarousellCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .brown
+        backgroundColor = .clear
+        setupImageView()
+        setupLabel()
+
+    }
+    
+    func setupImageView() {
+        imageView.image = #imageLiteral(resourceName: "menu")
+        addSubview(imageView)
+        imageView.clipToSuperview(with: [.trailing, .leading])
+        imageView.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
+        imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
+        imageView.roundCorners(radius: layer.cornerRadius, corners: [.topRight, .topLeft])
+    }
+    
+    func setupLabel() {
         addSubview(label)
-        
         label.translatesAutoresizingMaskIntoConstraints = false
         label.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         label.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true

@@ -27,11 +27,11 @@ extension UIView {
             case .top:
                 self.topAnchor.constraint(equalTo: superview.safeAreaLayoutGuide.topAnchor).isActive = true
             case .bottom:
-                self.bottomAnchor.constraint(equalTo: superview.safeAreaLayoutGuide.bottomAnchor).isActive = true
+                self.bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
             case .leading:
-                self.leadingAnchor.constraint(equalTo: superview.safeAreaLayoutGuide.leadingAnchor).isActive = true
+                self.leadingAnchor.constraint(equalTo: superview.leadingAnchor).isActive = true
             case .trailing:
-                self.trailingAnchor.constraint(equalTo: superview.safeAreaLayoutGuide.trailingAnchor).isActive = true
+                self.trailingAnchor.constraint(equalTo: superview.trailingAnchor).isActive = true
             }
         }
     }

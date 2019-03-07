@@ -53,7 +53,6 @@ class TopFeedCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionV
         carousellCollectionView.register(TopFeedCarousellCell.self, forCellWithReuseIdentifier: TopFeedCarousellCellID)
         addSubview(carousellCollectionView)
     
-        carousellCollectionView.contentInset = .init(top: 10, left: 10, bottom: 10, right: 10)
         carousellCollectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10.0).isActive = true
         carousellCollectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 5.0).isActive = true
         carousellCollectionView.clipToSuperview(with: [.leading, .trailing])
