@@ -44,10 +44,10 @@ class BottomFeedCell: UICollectionViewCell {
         imageView.image = #imageLiteral(resourceName: "wallpaper3")
         addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10.0).isActive = true
-        imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10.0).isActive = true
-        imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10.0).isActive = true
-        imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5.0).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0.0).isActive = true
+        imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0.0).isActive = true
+        imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0.0).isActive = true
+        imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0.0).isActive = true
     }
     
 }

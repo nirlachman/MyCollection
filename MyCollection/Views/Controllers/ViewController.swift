@@ -55,26 +55,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func setupMenuCarousellCollectionView() {
         menuCarousellCollectionView.register(MenuCarousellCell.self, forCellWithReuseIdentifier: MenuCarousellCellID)
         view.addSubview(menuCarousellCollectionView)
-        
-        menuCarousellCollectionView.contentInset = .init(top: 10, left: 10, bottom: 10, right: 10)
-//        carousellCollectionView.scrollIndicatorInsets = .init(top: 50, left: 0, bottom: 0, right: 0)
-        menuCarousellCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        menuCarousellCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        menuCarousellCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        menuCarousellCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-//        carousellHeightConstraint = carousellCollectionView.heightAnchor.constraint(equalToConstant: 100.0)
-//        carousellHeightConstraint?.isActive = true
-        carousellBottomConstraint = menuCarousellCollectionView.bottomAnchor.constraint(equalTo: menuCarousellCollectionView.topAnchor, constant: 100.0)
-        carousellBottomConstraint?.isActive = true
-
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//            // your code here
-////            self.carousellHeightConstraint?.constant = 120.0
-//            self.carousellBottomConstraint?.constant -= 20.0
-//            UIView.animate(withDuration: 1.0, animations: {
-//                self.view.layoutIfNeeded()
-//            })
-//        }
+        menuCarousellCollectionView.clipToSuperview(with: [.leading, .trailing, .top])
+        menuCarousellCollectionView.bottomAnchor.constraint(equalTo: menuCarousellCollectionView.topAnchor, constant: 100.0).isActive = true
     }
     
     func setupFeedCollectionView() {
@@ -84,7 +66,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         view.addSubview(feedCollectionView)
         
         feedCollectionView.contentInset = .init(top: 0, left: 0, bottom: 0, right: 0)
-        feedCollectionView.translatesAutoresizingMaskIntoConstraints = false
         feedCollectionView.clipToSuperview(with: [.leading, .trailing, .bottom])
         feedCollectionView.topAnchor.constraint(equalTo: menuCarousellCollectionView.bottomAnchor).isActive = true
     }
@@ -160,33 +141,21 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        menuCarousellCollectionView.reloadItems(at: menuCarousellCollectionView.indexPathsForVisibleItems)
-        feedCollectionView.reloadItems(at: feedCollectionView.indexPathsForVisibleItems)
+        print("traitCollectionDidChange")
+        menuCarousellCollectionView.collectionViewLayout.invalidateLayout()
+        feedCollectionView.collectionViewLayout.invalidateLayout()
     }
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//        if collectionView == meanuCarousellCollectionView {
-//            return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-//        } else {
-//            if section == 0 {
-//                // top
-//                return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-//            } else if section == 1 {
-//                // middle
-//                return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-//            } else {
-//                // bottom
-//                return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-//            }
-//        }
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-//        return 0.0
-//    }
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//        return 0.0
-//    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: Constants.edgeInset, left: Constants.edgeInset, bottom: Constants.edgeInset, right: Constants.edgeInset)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 10.0
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 10.0
+    }
     
 
 }

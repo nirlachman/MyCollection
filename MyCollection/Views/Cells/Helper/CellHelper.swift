@@ -59,19 +59,19 @@ class MenuItemSize: CollectionViewSizeCreator {
 
 class TopFeedItemSize: CollectionViewSizeCreator {
     func getItemSizeForRegular() -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width, height: 200.0)
+        return CGSize(width: UIScreen.main.bounds.width - (2 * Constants.edgeInset), height: 200.0)
     }
     
     func getItemSizeForCompact() -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width, height: 170.0)
+        return CGSize(width: UIScreen.main.bounds.width - (2 * Constants.edgeInset), height: 170.0)
     }
     
     func getItemSizeForCompactHorizontalAndRegularVertical() -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width, height: 170.0)
+        return CGSize(width: UIScreen.main.bounds.width - (2 * Constants.edgeInset), height: 170.0)
     }
     
     func getItemSizeForRegulaHorizontalAndCompactVertical() -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width, height: 170.0)
+        return CGSize(width: UIScreen.main.bounds.width - (2 * Constants.edgeInset), height: 170.0)
     }
 }
 
@@ -96,19 +96,19 @@ class TopFeedCarousellItemSize: CollectionViewSizeCreator {
 
 class MiddleFeedItemSize: CollectionViewSizeCreator {
     func getItemSizeForRegular() -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width, height: 200.0)
+        return CGSize(width: UIScreen.main.bounds.width - (2 * Constants.edgeInset), height: 200.0)
     }
     
     func getItemSizeForCompact() -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width, height: 170.0)
+        return CGSize(width: UIScreen.main.bounds.width - (2 * Constants.edgeInset), height: 170.0)
     }
     
     func getItemSizeForCompactHorizontalAndRegularVertical() -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width, height: 170.0)
+        return CGSize(width: UIScreen.main.bounds.width - (2 * Constants.edgeInset), height: 170.0)
     }
     
     func getItemSizeForRegulaHorizontalAndCompactVertical() -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width, height: 170.0)
+        return CGSize(width: UIScreen.main.bounds.width - (2 * Constants.edgeInset), height: 170.0)
     }
 }
 
@@ -133,21 +133,20 @@ class MiddleFeedCarousellItemSize: CollectionViewSizeCreator {
 
 class BottomFeedItemSize: CollectionViewSizeCreator {
     func getItemSizeForRegular() -> CGSize {
-        let width = (UIScreen.main.bounds.width / 2) - 5.0
-        print(width)
-        return CGSize(width: width, height: 350.0)
+        let width = (UIScreen.main.bounds.width / 2) - (2 * Constants.edgeInset)
+        return CGSize(width: width, height: width)
     }
     
     func getItemSizeForCompact() -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width, height: 300.0)
+        return CGSize(width: UIScreen.main.bounds.width - (2 * Constants.edgeInset), height: 300.0)
     }
     
     func getItemSizeForCompactHorizontalAndRegularVertical() -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width, height: 300.0)
+        return CGSize(width: UIScreen.main.bounds.width - (2 * Constants.edgeInset), height: 300.0)
     }
     
     func getItemSizeForRegulaHorizontalAndCompactVertical() -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width, height: 300.0)
+        return CGSize(width: UIScreen.main.bounds.width - (2 * Constants.edgeInset), height: 300.0)
     }
 }
 
