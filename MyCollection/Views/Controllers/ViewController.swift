@@ -83,7 +83,7 @@ class ViewController: UIViewController {
 extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == menuCarousellCollectionView {
-            return 5
+            return 15
         } else {
             if section <= FeedSections.middle.rawValue {
                 return 1
@@ -125,12 +125,6 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
                 }
                 return cell
             }
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView == menuCarousellCollectionView {
-            collectionView.collectionViewLayout.invalidateLayout()
         }
     }
     
@@ -190,5 +184,3 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
         return 10.0
     }
 }
-
-

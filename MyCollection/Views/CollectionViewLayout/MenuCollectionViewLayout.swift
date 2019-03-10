@@ -52,7 +52,7 @@ class MenuCollectionViewLayout: UICollectionViewLayout {
         let y: CGFloat = 0.0
         let width: CGFloat = sizeHelper.getItemSize().width
         let x: CGFloat = CGFloat((indexPath.row * Int(width)) + (indexPath.row * 10)) //attributes.frame.origin.x
-        let height: CGFloat = collectionView.frame.height - 20
+        let height: CGFloat = collectionView.frame.height - Constants.edgeInset * 2
         let indexPath = IndexPath(item: indexPath.row, section: indexPath.section)
         let attribute = UICollectionViewLayoutAttributes(forCellWith: indexPath)
         attribute.frame = CGRect(x: x, y: y, width: width, height: height)
