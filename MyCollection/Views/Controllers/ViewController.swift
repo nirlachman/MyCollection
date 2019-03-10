@@ -11,31 +11,21 @@ import UIKit
 var offset: CFloat = 0.0
 class ViewController: UIViewController {
     // MARK: - Properties
-    private let MenuCarousellCellID = "MENU_CAROUSELL_CELL_ID"
-    private let TopFeedCellID = "TOP_FEED_CELL_ID"
-    private let MiddleFeedCellID = "MIDDLE_FEED_CELL_ID"
-    private let BottomFeedCellID = "BOTTOM_FEED_CELL_ID"
     private lazy var menuItemSizeHelper: CollectionViewCellSizeHelper = {
         return CollectionViewCellSizeHelper(traits: traitCollection, strategy: MenuItemSize())
     }()
-    private lazy var topFeedItemSizeHelper: CollectionViewCellSizeHelper = {
-        return CollectionViewCellSizeHelper(traits: traitCollection, strategy: TopFeedItemSize())
-    }()
-    private lazy var middleFeedItemSizeHelper: CollectionViewCellSizeHelper = {
-        return CollectionViewCellSizeHelper(traits: traitCollection, strategy: MiddleFeedItemSize())
-    }()
-    private lazy var bottomFeedItemSizeHelper: CollectionViewCellSizeHelper = {
-        return CollectionViewCellSizeHelper(traits: traitCollection, strategy: BottomFeedItemSize())
-    }()
-    
     private lazy var menuCarousellCollectionView: UICollectionView = {
         let layout = MenuCollectionViewLayout(sizeHelper: menuItemSizeHelper)
-        return UICollectionView.createCollectionView(withDelegate: self, dataSource: self, layout: layout)
+        return UICollectionView.createCollectionView(withDelegate: menuCarousellCollectionViewHandler, dataSource: menuCarousellCollectionViewHandler, layout: layout)
     }()
     private lazy var feedCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0.0
-        return UICollectionView.createCollectionView(withDelegate: self, dataSource: self, layout: layout)
+        return UICollectionView.createCollectionView(withDelegate: feedCollectionViewHandler, dataSource: feedCollectionViewHandler, layout: layout)
+    }()
+    private let menuCarousellCollectionViewHandler = MenuCollectionHandler()
+    private lazy var feedCollectionViewHandler: FeedCollectionHandler = {
+        return FeedCollectionHandler(traits: traitCollection, delegate: self)
     }()
     private var menuCarousellHeightConstraint: NSLayoutConstraint?
     private var menuCarousellMinHeight: CGFloat = 40.0 + (Constants.edgeInset * 2)
@@ -61,7 +51,7 @@ class ViewController: UIViewController {
 
     // MARK: - UI Setup
     func setupMenuCarousellCollectionView() {
-        menuCarousellCollectionView.register(MenuCarousellCell.self, forCellWithReuseIdentifier: MenuCarousellCellID)
+        menuCarousellCollectionView.register(MenuCarousellCell.self, forCellWithReuseIdentifier: Constants.MenuCarousellCellID)
         view.addSubview(menuCarousellCollectionView)
         menuCarousellCollectionView.contentInset = UIEdgeInsets(top: Constants.edgeInset, left: Constants.edgeInset, bottom: Constants.edgeInset, right: Constants.edgeInset)
         menuCarousellCollectionView.clipToSuperview(with: [.leading, .trailing, .top])
@@ -71,116 +61,41 @@ class ViewController: UIViewController {
     
     func setupFeedCollectionView() {
         feedCollectionView.contentInsetAdjustmentBehavior = .never
-        feedCollectionView.register(TopFeedCell.self, forCellWithReuseIdentifier: TopFeedCellID)
-        feedCollectionView.register(MiddleFeedCell.self, forCellWithReuseIdentifier: MiddleFeedCellID)
-        feedCollectionView.register(BottomFeedCell.self, forCellWithReuseIdentifier: BottomFeedCellID)
+        feedCollectionView.register(TopFeedCell.self, forCellWithReuseIdentifier: Constants.TopFeedCellID)
+        feedCollectionView.register(MiddleFeedCell.self, forCellWithReuseIdentifier: Constants.MiddleFeedCellID)
+        feedCollectionView.register(BottomFeedCell.self, forCellWithReuseIdentifier: Constants.BottomFeedCellID)
         view.addSubview(feedCollectionView)
         feedCollectionView.clipToSuperview(with: [.leading, .trailing, .bottom])
         feedCollectionView.topAnchor.constraint(equalTo: menuCarousellCollectionView.bottomAnchor).isActive = true
     }
 }
 
-extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == menuCarousellCollectionView {
-            return 15
-        } else {
-            if section <= FeedSections.middle.rawValue {
-                return 1
-            } else {
-                return 15
-            }
-        }
-    }
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        if collectionView == menuCarousellCollectionView {
-            return 1
-        } else {
-            return 3
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == menuCarousellCollectionView {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MenuCarousellCellID, for: indexPath) as? MenuCarousellCell else {
-                return UICollectionViewCell(frame: CGRect(x: 0.0, y: 0.0, width: view.bounds.width, height: 100.0))
-            }
-            cell.label.text = "ACTION"
-            return cell
-        } else {
-            if indexPath.section == FeedSections.top.rawValue {
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopFeedCellID, for: indexPath) as? TopFeedCell else {
-                    return UICollectionViewCell(frame: CGRect(x: 0.0, y: 0.0, width: view.bounds.width, height: 100.0))
-                }
-                return cell
-            } else if indexPath.section == FeedSections.middle.rawValue {
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MiddleFeedCellID, for: indexPath) as? MiddleFeedCell else {
-                    return UICollectionViewCell(frame: CGRect(x: 0.0, y: 0.0, width: view.bounds.width, height: 100.0))
-                }
-                return cell
-            } else {
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BottomFeedCellID, for: indexPath) as? BottomFeedCell else {
-                    return UICollectionViewCell(frame: CGRect(x: 0.0, y: 0.0, width: view.bounds.width, height: 100.0))
-                }
-                return cell
-            }
-        }
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView == feedCollectionView {
-            let insets: CGFloat = Constants.edgeInset * 2
-            let contentOffsetY = scrollView.contentOffset.y
-            let menuCarousellMaxHeight = menuItemSizeHelper.getItemSize().height
-            if contentOffsetY >= 0 {
-                if (self.menuCarousellHeightConstraint!.constant + insets) >= menuCarousellMinHeight  {
-                    let updatedAnchor = menuCarousellMaxHeight - contentOffsetY
-                    guard updatedAnchor >= menuCarousellMinHeight else {
-                        return
-                    }
-                    self.menuCarousellHeightConstraint?.constant = updatedAnchor
-                    UIViewPropertyAnimator(duration: 0.1, curve: .easeInOut) {
-                        self.menuCarousellCollectionView.setNeedsLayout()
-                    }.startAnimation()
-                }
-            } else if (self.menuCarousellHeightConstraint!.constant + insets) < menuCarousellMaxHeight {
-                let updatedAnchor = self.menuCarousellMinHeight + abs(contentOffsetY)
-                guard updatedAnchor < menuCarousellMaxHeight else {
+extension ViewController: FeedCollectionDelegate {
+    func feedCollectionScrollViewDidScroll(_ scrollView: UIScrollView) {
+        let insets: CGFloat = Constants.edgeInset * 2
+        let contentOffsetY = scrollView.contentOffset.y
+        let menuCarousellMaxHeight = menuItemSizeHelper.getItemSize().height
+        if contentOffsetY >= 0 {
+            if (self.menuCarousellHeightConstraint!.constant + insets) >= menuCarousellMinHeight  {
+                let updatedAnchor = menuCarousellMaxHeight - contentOffsetY
+                guard updatedAnchor >= menuCarousellMinHeight else {
                     return
                 }
-                
                 self.menuCarousellHeightConstraint?.constant = updatedAnchor
                 UIViewPropertyAnimator(duration: 0.1, curve: .easeInOut) {
                     self.menuCarousellCollectionView.setNeedsLayout()
-                }.startAnimation()
+                    }.startAnimation()
             }
+        } else if (self.menuCarousellHeightConstraint!.constant + insets) < menuCarousellMaxHeight {
+            let updatedAnchor = self.menuCarousellMinHeight + abs(contentOffsetY)
+            guard updatedAnchor < menuCarousellMaxHeight else {
+                return
+            }
+            
+            self.menuCarousellHeightConstraint?.constant = updatedAnchor
+            UIViewPropertyAnimator(duration: 0.1, curve: .easeInOut) {
+                self.menuCarousellCollectionView.setNeedsLayout()
+                }.startAnimation()
         }
-    }
-}
-
-extension ViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if indexPath.section == FeedSections.top.rawValue {
-            // top
-            return topFeedItemSizeHelper.getItemSize()
-        } else if indexPath.section == FeedSections.middle.rawValue {
-            // middle
-            return middleFeedItemSizeHelper.getItemSize()
-        } else {
-            // bottom
-            return bottomFeedItemSizeHelper.getItemSize()
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: Constants.edgeInset, left: Constants.edgeInset, bottom: Constants.edgeInset, right: Constants.edgeInset)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 10.0
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 10.0
     }
 }
