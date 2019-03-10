@@ -19,16 +19,16 @@ class MiddleFeedCarousellCell: UICollectionViewCell {
     private let itemTitleLabel: UILabel = {
         let newLabel = UILabel(frame: CGRect.zero)
         newLabel.textAlignment = .center
-        newLabel.font = UIFont.systemFont(ofSize: 14.0)
+        newLabel.font = UIFont.systemFont(ofSize: 13.0)
         newLabel.numberOfLines = 0
-        newLabel.textColor = .darkGray
+        newLabel.textColor = .white
         return newLabel
     }()
     
     // MARK - LifeCycle
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .green
+        backgroundColor = .lightGray
         layer.cornerRadius = 4
         setupImageView()
         setupItemTitleLabel()
@@ -50,10 +50,12 @@ class MiddleFeedCarousellCell: UICollectionViewCell {
     
     func setupItemTitleLabel() {
         itemTitleLabel.text = "A Beautiful Wallpaper"
+        itemTitleLabel.backgroundColor = .clear
+
         addSubview(itemTitleLabel)
         itemTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        itemTitleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5.0).isActive = true
-        itemTitleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -5.0).isActive = true
+        itemTitleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 0.0).isActive = true
+        itemTitleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0.0).isActive = true
         itemTitleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5.0).isActive = true
         itemTitleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5.0).isActive = true
     }
