@@ -12,7 +12,8 @@ class MenuCarousellCell: UICollectionViewCell {
     // MARK: - Properties
     private let imageView: UIImageView = {
         let newImageView = UIImageView(frame: CGRect.zero)
-        newImageView.contentMode = .scaleAspectFill
+        newImageView.contentMode = .center
+        newImageView.clipsToBounds = true
         return newImageView
     }()
     
@@ -35,15 +36,12 @@ class MenuCarousellCell: UICollectionViewCell {
         backgroundColor = .clear
         setupImageView()
         setupLabel()
-
     }
     
     func setupImageView() {
         imageView.image = #imageLiteral(resourceName: "menu")
         addSubview(imageView)
-        imageView.clipToSuperview(with: [.trailing, .leading])
-        imageView.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
-        imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
+        imageView.clipToSuperview(with: [.trailing, .leading, .top, .bottom])
         imageView.roundCorners(radius: layer.cornerRadius, corners: [.topRight, .topLeft])
     }
     

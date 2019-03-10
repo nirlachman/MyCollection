@@ -49,11 +49,11 @@ class MenuItemSize: CollectionViewSizeCreator {
     }
     
     func getItemSizeForCompactHorizontalAndRegularVertical() -> CGSize {
-        return CGSize(width: 80.0, height: 100.0)
+        return CGSize(width: 90.0, height: 120.0)
     }
     
     func getItemSizeForRegulaHorizontalAndCompactVertical() -> CGSize {
-        return CGSize(width: 50.0, height: 50.0)
+        return CGSize(width: 90.0, height: 50.0)
     }
 }
 

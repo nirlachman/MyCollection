@@ -10,7 +10,7 @@ import UIKit
 
 extension UICollectionView {
     
-    class func createCollectionView(withDelegate delegate: UICollectionViewDelegate?, dataSource: UICollectionViewDataSource?, layout: UICollectionViewFlowLayout) -> UICollectionView {
+    class func createCollectionView(withDelegate delegate: UICollectionViewDelegate?, dataSource: UICollectionViewDataSource?, layout: UICollectionViewLayout) -> UICollectionView {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.backgroundColor = UIColor.white
         cv.dataSource = dataSource
