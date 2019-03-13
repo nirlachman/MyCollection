@@ -14,4 +14,5 @@ struct Constants {
     static let TopFeedCellID = "TOP_FEED_CELL_ID"
     static let MiddleFeedCellID = "MIDDLE_FEED_CELL_ID"
     static let BottomFeedCellID = "BOTTOM_FEED_CELL_ID"
+    static let FeedSectionID = "FEED_SECTION_ID"
 }

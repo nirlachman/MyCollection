@@ -48,8 +48,14 @@ class FeedCollectionHandler: NSObject, UICollectionViewDataSource, UICollectionV
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: Constants.FeedSectionID, for: indexPath) as! TopFeedSectionHeaderView
+        sectionHeader.titleLabel.text = "Top Section"
+        return sectionHeader
+    }
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3
+        return 1//3
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

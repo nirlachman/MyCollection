@@ -13,14 +13,9 @@ class ViewController: UIViewController {
     // MARK: - Properties
     @IBOutlet weak var menuCarousellCollectionView: UICollectionView!
     @IBOutlet weak var menuCarousellHeightConstraint: NSLayoutConstraint!
-    
+    @IBOutlet weak var feedCollectionView: UICollectionView!
     private lazy var menuItemSizeHelper: CollectionViewCellSizeHelper = {
         return CollectionViewCellSizeHelper(traits: traitCollection, strategy: MenuItemSize())
-    }()
-    private lazy var feedCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 0.0
-        return UICollectionView.createCollectionView(withDelegate: feedCollectionViewHandler, dataSource: feedCollectionViewHandler, layout: layout)
     }()
     private let menuCarousellCollectionViewHandler = MenuCollectionHandler()
     private lazy var feedCollectionViewHandler: FeedCollectionHandler = {
@@ -54,22 +49,13 @@ class ViewController: UIViewController {
         layout.sizeHelper = menuItemSizeHelper
         menuCarousellCollectionView.delegate = menuCarousellCollectionViewHandler
         menuCarousellCollectionView.dataSource = menuCarousellCollectionViewHandler
-//        menuCarousellCollectionView.register(MenuCarousellCell.self, forCellWithReuseIdentifier: Constants.MenuCarousellCellID)
-//        view.addSubview(menuCarousellCollectionView)
         menuCarousellCollectionView.contentInset = UIEdgeInsets(top: Constants.edgeInset, left: Constants.edgeInset, bottom: Constants.edgeInset, right: Constants.edgeInset)
-//        menuCarousellCollectionView.clipToSuperview(with: [.leading, .trailing, .top])
-//        menuCarousellHeightConstraint = menuCarousellCollectionView.heightAnchor.constraint(equalToConstant: menuItemSizeHelper.getItemSize().height)
-//        menuCarousellHeightConstraint?.isActive = true
     }
     
     func setupFeedCollectionView() {
         feedCollectionView.contentInsetAdjustmentBehavior = .never
-        feedCollectionView.register(TopFeedCell.self, forCellWithReuseIdentifier: Constants.TopFeedCellID)
-        feedCollectionView.register(MiddleFeedCell.self, forCellWithReuseIdentifier: Constants.MiddleFeedCellID)
-        feedCollectionView.register(BottomFeedCell.self, forCellWithReuseIdentifier: Constants.BottomFeedCellID)
-        view.addSubview(feedCollectionView)
-        feedCollectionView.clipToSuperview(with: [.leading, .trailing, .bottom])
-        feedCollectionView.topAnchor.constraint(equalTo: menuCarousellCollectionView.bottomAnchor).isActive = true
+        feedCollectionView.delegate = feedCollectionViewHandler
+        feedCollectionView.dataSource = feedCollectionViewHandler
     }
 }
 

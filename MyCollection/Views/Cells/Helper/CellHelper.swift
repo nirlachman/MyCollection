@@ -59,19 +59,19 @@ class MenuItemSize: CollectionViewSizeCreator {
 
 class TopFeedItemSize: CollectionViewSizeCreator {
     func getItemSizeForRegular() -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width - (2 * Constants.edgeInset), height: 200.0)
+        return CGSize(width: UIScreen.main.bounds.width - (2 * Constants.edgeInset), height: 140.0)
     }
     
     func getItemSizeForCompact() -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width - (2 * Constants.edgeInset), height: 170.0)
+        return CGSize(width: UIScreen.main.bounds.width - (2 * Constants.edgeInset), height: 110.0)
     }
     
     func getItemSizeForCompactHorizontalAndRegularVertical() -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width - (2 * Constants.edgeInset), height: 170.0)
+        return CGSize(width: UIScreen.main.bounds.width - (2 * Constants.edgeInset), height: 110.0)
     }
     
     func getItemSizeForRegulaHorizontalAndCompactVertical() -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width - (2 * Constants.edgeInset), height: 170.0)
+        return CGSize(width: UIScreen.main.bounds.width - (2 * Constants.edgeInset), height: 110.0)
     }
 }
 
