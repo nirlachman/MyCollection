@@ -21,7 +21,7 @@ class MenuCollectionHandler: NSObject, UICollectionViewDataSource, UICollectionV
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.MenuCarousellCellID, for: indexPath) as? MenuCarousellCell else {
             return UICollectionViewCell(frame: CGRect(x: 0.0, y: 0.0, width: 200.0, height: 100.0))
         }
-        cell.label.text = "ACTION"
+//        cell.label.text = "ACTION"
         return cell
     }
 }

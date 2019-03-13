@@ -11,12 +11,11 @@ import UIKit
 var offset: CFloat = 0.0
 class ViewController: UIViewController {
     // MARK: - Properties
+    @IBOutlet weak var menuCarousellCollectionView: UICollectionView!
+    @IBOutlet weak var menuCarousellHeightConstraint: NSLayoutConstraint!
+    
     private lazy var menuItemSizeHelper: CollectionViewCellSizeHelper = {
         return CollectionViewCellSizeHelper(traits: traitCollection, strategy: MenuItemSize())
-    }()
-    private lazy var menuCarousellCollectionView: UICollectionView = {
-        let layout = MenuCollectionViewLayout(sizeHelper: menuItemSizeHelper)
-        return UICollectionView.createCollectionView(withDelegate: menuCarousellCollectionViewHandler, dataSource: menuCarousellCollectionViewHandler, layout: layout)
     }()
     private lazy var feedCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -27,8 +26,8 @@ class ViewController: UIViewController {
     private lazy var feedCollectionViewHandler: FeedCollectionHandler = {
         return FeedCollectionHandler(traits: traitCollection, delegate: self)
     }()
-    private var menuCarousellHeightConstraint: NSLayoutConstraint?
     private var menuCarousellMinHeight: CGFloat = 40.0 + (Constants.edgeInset * 2)
+    
     enum FeedSections: Int {
         case top = 0
         case middle
@@ -51,12 +50,16 @@ class ViewController: UIViewController {
 
     // MARK: - UI Setup
     func setupMenuCarousellCollectionView() {
-        menuCarousellCollectionView.register(MenuCarousellCell.self, forCellWithReuseIdentifier: Constants.MenuCarousellCellID)
-        view.addSubview(menuCarousellCollectionView)
+        let layout = menuCarousellCollectionView.collectionViewLayout as! MenuCollectionViewLayout
+        layout.sizeHelper = menuItemSizeHelper
+        menuCarousellCollectionView.delegate = menuCarousellCollectionViewHandler
+        menuCarousellCollectionView.dataSource = menuCarousellCollectionViewHandler
+//        menuCarousellCollectionView.register(MenuCarousellCell.self, forCellWithReuseIdentifier: Constants.MenuCarousellCellID)
+//        view.addSubview(menuCarousellCollectionView)
         menuCarousellCollectionView.contentInset = UIEdgeInsets(top: Constants.edgeInset, left: Constants.edgeInset, bottom: Constants.edgeInset, right: Constants.edgeInset)
-        menuCarousellCollectionView.clipToSuperview(with: [.leading, .trailing, .top])
-        menuCarousellHeightConstraint = menuCarousellCollectionView.heightAnchor.constraint(equalToConstant: menuItemSizeHelper.getItemSize().height)
-        menuCarousellHeightConstraint?.isActive = true
+//        menuCarousellCollectionView.clipToSuperview(with: [.leading, .trailing, .top])
+//        menuCarousellHeightConstraint = menuCarousellCollectionView.heightAnchor.constraint(equalToConstant: menuItemSizeHelper.getItemSize().height)
+//        menuCarousellHeightConstraint?.isActive = true
     }
     
     func setupFeedCollectionView() {
